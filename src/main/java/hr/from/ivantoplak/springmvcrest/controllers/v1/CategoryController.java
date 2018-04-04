@@ -3,9 +3,12 @@ package hr.from.ivantoplak.springmvcrest.controllers.v1;
 import hr.from.ivantoplak.springmvcrest.api.v1.model.CategoryDTO;
 import hr.from.ivantoplak.springmvcrest.api.v1.model.CategoryListDTO;
 import hr.from.ivantoplak.springmvcrest.services.CategoryService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+@Api(description = "Category API")
 @RestController
 @RequestMapping(CategoryController.BASE_URL)
 public class CategoryController {
@@ -17,6 +20,7 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
+    @ApiOperation(value = "Get a list of categories")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public CategoryListDTO getListOfCategories() {
@@ -24,6 +28,7 @@ public class CategoryController {
         return new CategoryListDTO(categoryService.getAllCategories());
     }
 
+    @ApiOperation(value = "Get category by name")
     @GetMapping("/{name}")
     @ResponseStatus(HttpStatus.OK)
     public CategoryDTO getCategoryByName(@PathVariable String name) {
